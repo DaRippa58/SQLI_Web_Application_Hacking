@@ -1,0 +1,57 @@
+Về SQL Injection là một phương thức sử dụng lỗ hổng của hệ thống để thâm nhập vào hay kỹ thuật chèn code để tấn 
+công các ứng dụng chứa dữ liệu. Đa số SQL Injection chủ yếu được sử dụng để tấn công các trang web, thông thường
+các cuộc tấn công sẽ cho phép kẻ tấn công, giả mạo, xáo trộn dữ liệu hay nghiêm trọng hơn nữa là có thể đánh cắp 
+thông tin, thêm, chỉnh sửa, xóa bỏ bất cứ cơ sở dữ liệu nào và có quyền truy cập vào tài khoản của admin.
+
+SQL Injection có 1 đặc điểm ở đây là dễ tấn công, cũng là một trong những phương thức phổ biến nhất đối với các 
+hacker. Đến với các loại SQL Injection, ở đây được phân chia ra làm 3: In-band SQLI, Inferential SQLI, 
+Out-of-band SQLI.
+#1: In-band SQLI
+Phương thức tấn công này có tính hiệu quả cao và dễ hành động trong 3 loại. Cơ bản các hacker sử dụng các kênh 
+liên lạc thông suốt với nhau để truy cập dữ liệi qua 2 hình thức:
+- Error-based SQLI: hình thức này sẽ lợi dụng thông báo lỗi từ cơ sở dữ liệu nhiều hơn, từ lỗi cung cấp được từ 
+đó thu thập thông tin và cấu trúc.
+- Union-based SQLI: đây là phép toán tử Union trong SQL, nó kết hợp tập hợp kết quả từ 2 hoặc nhiều câu lệnh được
+tạo từ cơ sở dữ liệu để nhận được phản hồi từ HTTP, có thể thu thập thông tin được chứa trong đó dễ dàng.
+
+#2: Inferential SQLI
+Phương thức tấn công sẽ dựa trên phản ứng và các hành vi hoạt động của server nên tần suất thực thi sẽ chậm hơn 
+In-band SQLI nhưng về mức độ hiệu quả cũng tương tự nhau thậm chí hiệu quả còn vô cùng tốt. Hacker sẽ gửi đi 
+data payload, một cách truyền đi dữ liệu gói tin của 2 phía, đến server và quan sát phản ứng, hành vi để xem cấu
+trúc của server.
+
+#3: Out-of-bound SQLI
+Phương thức này được sử dụng nếu server không ổn định hay quá chậm thì hacker sẽ tạo ra DNS hay HTTP request để
+chuyển dữ liệu cho hacker.
+
+Thêm một số loại tấn công phổ biến bằng SQLI:
+-SQLI dựa trên cookie:
+Sửa đổi cookie thành kiểu truy vấn cơ sở dữ liệu chứa mã độc. Malware được khai triển trên máy người dùng thông
+qua thay đổi cookie.
+-SQLI dựa trên headers HTTP:
+Nếu một website chấp nhận input từ headers HTTP thì headers giả chứa SQLI cũng có thể xâm nhập vào cơ sở dữ liệu. 
+
+Công cụ lập trình như PHP hay ASP do có giao diện chức năng cũ nên phù hợp để bị tấn công bởi SQL. Về mặt khác
+ASP.NET và J2EE có sẵn giao diện lập trình nên bị ít khai thác SQL Injection hơn.
+Có một số cách để hạn chế cuộc tấn công của SQLI:
+#1: Xác minh input của user
+Xác minh xem loại input do người dùng gửi có hợp lệ hay không. Đảm bảo đó là kiểu, độ dài, định dạng… được chấp 
+nhận. Chỉ các giá trị qua được xác thực mới có thể được xử lý. Nó giúp chống lại mọi lệnh được chèn vào trong 
+chuỗi input.
+
+#2: Xác minh input từ máy chủ
+Nền tảng như ASP.NET với việc có sẵn giao diện lập trình sẽ tự động xác minh dữ liệu user nhập vào, tự thêm vào
+ký hiệu đặc trưng để phân biệt đâu là dữ liệu cho phép và dữ liệu chứa mã độc.
+
+#3: Không hiển thị chi tiết thông tin về error
+Kẻ tấn công sẽ lợi dụng thông tin error message để tìm ra cấu trúc cơ sở dữ liệu, khi lỗi xảy ra thì chỉ nên 
+hiện ra thông báo chứ không phải thông tin về lỗi.
+
+#4: Phân quyền rõ ràng trong database
+Tạo account trong database phục vụ cho việc truy cập dữ liệu từ table, rồi gán quyền truy cập cho account đó
+thay vì dùng chung như root hay sa. Dù kẻ tấn công có inject SQL thì cũng không thể đọc table chính, sửa hay 
+xóa dữ liệu.
+
+#5: Backup data
+Dữ liệu thường xuyên được backup trong trường hợp tệ nhất thì vẫn có thể khôi phục được.
+
